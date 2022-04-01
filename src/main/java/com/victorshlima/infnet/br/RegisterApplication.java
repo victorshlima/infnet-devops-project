@@ -1,13 +1,13 @@
-package com.victorshlima.infnet.br.cadastrouser10.SNAPSHOT;
+package com.victorshlima.infnet.br;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class RegisterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(RegisterApplication.class, args);
 	}
 
 }

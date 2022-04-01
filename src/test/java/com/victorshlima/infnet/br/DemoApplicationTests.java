@@ -1,10 +1,10 @@
-package com.victorshlima.infnet.br.cadastrouser10.SNAPSHOT;
+package com.victorshlima.infnet.br;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {

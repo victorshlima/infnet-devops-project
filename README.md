@@ -2,7 +2,7 @@
 
 
 ### Requisites
-  Do you need isntall docker, and docker compose
+  Do you need install docker, and docker compose
   sudo apt install postgresql-client-common
   sudo apt-get install postgresql-client
   sudo apt-get install -y postgresql-client
