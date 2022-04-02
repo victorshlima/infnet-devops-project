@@ -1,18 +1,19 @@
 package com.victorshlima.infnet.br.controller;
 
-
 import com.victorshlima.infnet.br.domain.dto.UserDto;
 import com.victorshlima.infnet.br.service.RegisterService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
-@RestController("/register")
+@RestController
 public class RegisterController {
 
-    private RegisterService registerService;
+    private final RegisterService registerService;
 
     public RegisterController (RegisterService registerService){
     this.registerService = registerService;
@@ -20,9 +21,7 @@ public class RegisterController {
 
     @GetMapping(value ="/user/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable("id") Long id){
-
         var user =  registerService.findUser(id);
-
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -37,12 +36,8 @@ public class RegisterController {
 
     @PostMapping("/user")
     public ResponseEntity<UserDto> userRegister(@RequestBody UserDto user){
-     UserDto userRegistered = UserDto.builder()
-                .name(user.getName())
-                .lastName(user.getLastName())
-                .zipCode(user.getZipCode())
-                .number(user.getNumber())
-                .build();
+        //TODO remover a necessidade do envio do ID
+        registerService.saveUser(user);
      return new ResponseEntity<UserDto>(user, HttpStatus.CREATED);
     }
 
