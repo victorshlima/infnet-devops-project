@@ -19,20 +19,35 @@ docker pull openjdk:11
 - Image creation
 ##docker build -t infnet-devops-project_api  .
 #specific to gradle
-docker build --build-arg JAR_FILE=build/libs/\*.jar -t infnet-devops-project_api  .
 
-docker run -dp 8080:8088 infnet-devops-project_api
+##criar um script
 
 ./gradlew clean build
 
 
-infnet-devops-project_api_1
+docker image rm -f <image_id>
+
+docker build --build-arg JAR_FILE=build/libs/\*.jar -t infnet-devops-project_api  .
+
+docker run -dp 8088:8088 <IMAGE_ID>
 
 docker-compose ps
 docker exec -it infnet-devops-project_api_1 bash
 
+#
+
+docker-compose up -d
+docker-compose down
 
 
+GET http://localhost:8088/actuator/metrics
+GET http://localhost:8088/actuator/prometheus
+http://localhost:3003/login - admin - admin
+http://localhost:9090/graph?g0.expr=&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h
+
+#Phometeus
+up{instance="host.docker.internal:8088", job="spring-observability"}
+up{instance="localhost:9090", job="prometheus"}
 #https://docs.docker.com/engine/reference/commandline/exec/
 
 ##Run

@@ -1,4 +1,4 @@
-	plugins {
+plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
@@ -22,7 +22,6 @@ springBoot {
 	buildInfo()
 }
 
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -42,6 +41,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.5'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.5'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus:1.8.4'
 }
 
 tasks.named('test') {
