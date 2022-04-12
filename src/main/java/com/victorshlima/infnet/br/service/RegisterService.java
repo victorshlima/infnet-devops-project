@@ -2,14 +2,17 @@ package com.victorshlima.infnet.br.service;
 
 import com.victorshlima.infnet.br.domain.dto.UserDto;
 import com.victorshlima.infnet.br.domain.dto.UserDtoParse;
-import com.victorshlima.infnet.br.util.FormatUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import static com.victorshlima.infnet.br.repository.UseDtoEntities.*;
 import static com.victorshlima.infnet.br.repository.UseDtoEntities.userId1;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
@@ -44,4 +47,19 @@ public class RegisterService {
             return null;
 
     }
+
+
+    @Autowired
+    RestTemplate restTemplate;
+  //  @Override
+    public Boolean isValid(Long id) {
+        String url = String.format("http://localhost:8087/validate/%s",id);
+        log.info(String.format("URL CHAMADA:::::: %s ",url));
+        var isValidResult = restTemplate.getForObject(url, Boolean.class);
+        log.info(String.format("RETORNO DA URL CHAMADA:::::: %s ",isValidResult));
+        return isValidResult;
+    }
+
+
+
 }

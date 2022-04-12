@@ -42,8 +42,11 @@ public class RegisterController {
     public ResponseEntity<UserDto> userRegister(@RequestBody UserDto user){
         //TODO remover a necessidade do envio do ID
         log.info("userRegister");
+        registerService.isValid(user.getId());
         registerService.saveUser(user);
         URI location = URI.create("/user/" + user.getId());
+
+        log.info(String.format("RETORNO:::::: %s %s",location,user));
         return ResponseEntity.created(location).body(user);
     }
 
