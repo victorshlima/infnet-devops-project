@@ -8,13 +8,35 @@
   sudo apt-get install -y postgresql-client
 
 
+#papertrailapp.com/
+
+https://my.papertrailapp.com/
+- fazer cadastro
+- 
+install local
+wget -qO - --header="X-Papertrail-Token: m6Zu9aH2FciRb3MfZMlY" https://papertrailapp.com/destinations/31164911/setup.sh | sudo bash
+
+criar o arquivo logback.xml na pasta resources
+
+get info on https://papertrailapp.com/account/destinations
+and set on syslogHost and port
+
+<syslogHost>logs3.papertrailapp.com</syslogHost>
+<port>23047</port>
+
+Settings > account 
+ enable (x) HTTP(s) URLs
+
+View the logs on https://my.papertrailapp.com/events
+
+
 ##Build
 -- download openjdk:11
 
-
-
 -- get the image base
 docker pull openjdk:11
+docker pull egis/papertrail
+docker pull openzipkin/zipkin
 
 - Image creation
 ##docker build -t infnet-devops-project_api  .
@@ -23,21 +45,22 @@ docker pull openjdk:11
 ##criar um script
 
 ./gradlew clean build
+--spring.profiles.active=dev
 
 
 docker image rm -f <image_id>
-
 docker build --build-arg JAR_FILE=build/libs/\*.jar -t infnet-devops-project_api  .
-
 docker run -dp 8088:8088 <IMAGE_ID>
-
 docker-compose ps
 docker exec -it infnet-devops-project_api_1 bash
 
 #
 
 docker-compose up -d
+
+# Docker Stop
 docker-compose down
+docker-compose -p infnet-devops-project stop api
 
 
 GET http://localhost:8088/actuator/metrics

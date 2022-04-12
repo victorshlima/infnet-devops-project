@@ -10,14 +10,6 @@ sourceCompatibility = "11"
 sourceCompatibility = '1.11'
 compileJava.options.encoding = 'UTF-8'
 
-//create a single Jar with all dependencies
-jar {
-	manifest {
-		attributes 'Main-Class': 'com.victorshlima.infnet.RegisterApplication'
-	}
-}
-
-//Spring
 springBoot {
 	buildInfo()
 }
@@ -37,11 +29,22 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.6.5'
 	implementation('org.springframework.boot:spring-boot-starter-actuator:2.6.5')
+	implementation 'org.springframework:spring-context:5.3.18'
+	implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.1'
+
 	compileOnly 'org.projectlombok:lombok:1.18.22'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.5'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.6'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.5'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus:1.8.4'
+
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.1'
+	}
 }
 
 tasks.named('test') {
