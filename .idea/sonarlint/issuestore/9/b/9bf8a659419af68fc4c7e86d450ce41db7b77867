@@ -1,0 +1,17 @@
+
+P
+java:S1118":Add a private constructor to hide the implicit public one.(È¾‡ò
+n
+java:S1104"SMake userId1 a static final constant or non-public and provide accessors if needed.(À‚§şÿÿÿÿ
+i
+java:S1104	"SMake userId2 a static final constant or non-public and provide accessors if needed.(ÄªÕÿ
+i
+java:S1104
+"SMake userId3 a static final constant or non-public and provide accessors if needed.(Û®¹À
+H
+java:S1444"-Make this "public static userId1" field final(À‚§şÿÿÿÿ
+C
+java:S1444	"-Make this "public static userId2" field final(ÄªÕÿ
+C
+java:S1444
+"-Make this "public static userId3" field final(Û®¹À
