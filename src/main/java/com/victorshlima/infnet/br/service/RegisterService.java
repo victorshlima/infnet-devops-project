@@ -48,7 +48,6 @@ public class RegisterService {
 
     }
 
-
     @Autowired
     RestTemplate restTemplate;
   //  @Override
@@ -59,7 +58,4 @@ public class RegisterService {
         log.info(String.format("RETORNO DA URL CHAMADA:::::: %s ",isValidResult));
         return isValidResult;
     }
-
-
-
 }
