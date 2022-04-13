@@ -1,5 +1,4 @@
 # infnet-devops-project
-
     
 ### Requisites
   Do you need install docker, and docker compose
@@ -7,13 +6,29 @@
   sudo apt-get install postgresql-client
   sudo apt-get install -y postgresql-client
 
+docker-compose up -d zipkin_infnet grafana prometheus postgres jenkins
+
+
+#Jenkins - first acess
+docker pull jenkins
+docker container exec -it 3361ede4dc96 /bin/sh
+cat var/jenkins_home/secrets/initialAdminPassword
+"get the password"
+install sugested plugins
+#Local - admin - admin
+docker-compose up -d zipkin_infnet grafana prometheus
+
+# jenkins - config
+New node -> docker
+
 
 #papertrailapp.com/
 
 https://my.papertrailapp.com/
+
 - fazer cadastro
-- 
-install local
+- install local
+
 wget -qO - --header="X-Papertrail-Token: m6Zu9aH2FciRb3MfZMlY" https://papertrailapp.com/destinations/31164911/setup.sh | sudo bash
 
 criar o arquivo logback.xml na pasta resources
@@ -29,7 +44,6 @@ Settings > account
 
 View the logs on https://my.papertrailapp.com/events
 
-
 ##Build
 -- download openjdk:11
 
@@ -37,6 +51,11 @@ View the logs on https://my.papertrailapp.com/events
 docker pull openjdk:11
 docker pull egis/papertrail
 docker pull openzipkin/zipkin
+
+#zipkin
+curl -sSL https://zipkin.io/quickstart.sh | bash -s
+java -jar zipkin.jar
+
 
 - Image creation
 ##docker build -t infnet-devops-project_api  .
@@ -47,21 +66,17 @@ docker pull openzipkin/zipkin
 ./gradlew clean build
 --spring.profiles.active=dev
 
-
 docker image rm -f <image_id>
 docker build --build-arg JAR_FILE=build/libs/\*.jar -t infnet-devops-project_api  .
 docker run -dp 8088:8088 <IMAGE_ID>
 docker-compose ps
 docker exec -it infnet-devops-project_api_1 bash
 
-#
-
-docker-compose up -d
+]docker-compose up -d
 
 # Docker Stop
 docker-compose down
 docker-compose -p infnet-devops-project stop api
-
 
 GET http://localhost:8088/actuator/metrics
 GET http://localhost:8088/actuator/prometheus
@@ -86,7 +101,6 @@ java -jar build/libs/infnet-devops-project-0.0.1-SNAPSHOT.jar
  - zipking
 
  Execute on project root
-
 
  - docker-compose up -d
  -d to execute detached
@@ -124,4 +138,3 @@ Requisitos
 - Na raiz do projeto deve ter arquivos de imagem com printscreens do zipking rodando.
 - Todos devem postar o link para o projeto no Moodle. Aqueles que fizerem em grupo colocar no README do projeto o nome do grupo.
 ****
-
