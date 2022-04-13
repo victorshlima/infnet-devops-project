@@ -1,0 +1,73 @@
+version: '3'
+services:
+
+  api:
+    image: infnet-devops-project_api
+    command: ["java", "-jar", "infnet-devops-project-0.0.1-SNAPSHOT.jar"]
+    environment:
+      AMBIENTE: development
+    ports:
+      - "8088:8088"
+        #HOST:CONTAINER
+    depends_on:
+      - zipkin_infnet
+
+  prometheus:
+    image: prom/prometheus:v2.31.1
+    command: --config.file=/etc/prometheus/prometheus.yml --log.level=debug
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:8.2.3
+    ports:
+      - "3003:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    user: '104'
+    links:
+      - prometheus
+
+  zipkin_infnet:
+    image: openzipkin/zipkin-slim
+    ports:
+      - "9411:9411"
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - /home/${myname}/jenkins_compose/jenkins_configuration:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  grafana-storage:
