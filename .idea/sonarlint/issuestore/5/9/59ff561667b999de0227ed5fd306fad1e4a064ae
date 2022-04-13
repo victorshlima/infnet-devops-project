@@ -1,0 +1,7 @@
+
+P
+java:S1118":Add a private constructor to hide the implicit public one.(¼êÔö
+\
+java:S1126"AReplace this if-then-else statement by a single return statement.(”˜¯½þÿÿÿÿ
+b
+java:S3973"GUse indentation to denote the code conditionally executed by this "if".(”˜¯½þÿÿÿÿ
