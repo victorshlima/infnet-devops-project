@@ -1,0 +1,22 @@
+
+###
+###
+DELETE {{localhost}}/user/1
+
+###
+POST {{localhost}}/user
+
+###
+POST {{localhost}}/user
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Bill12",
+  "lastName": "Hicks",
+  "zipCode": "300010-666",
+  "number": 306
+}
+###
+GET {{localhost}}/user/1
+
