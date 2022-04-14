@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM gradle:jdk11
 MAINTAINER  "vlima@<victorshlima@gmail.com>"
 
 #TODO criar uma pasta para o projeto
