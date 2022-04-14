@@ -1,14 +1,20 @@
 # infnet-devops-project
 
-#1
+#2
 
 ### Requisites
   Do you need install docker, and docker compose
   sudo apt install postgresql-client-common
   sudo apt-get install postgresql-client
   sudo apt-get install -y postgresql-client
+  docker pull gradle:7.4.2-jdk11
 
 docker-compose up -d zipkin_infnet grafana prometheus postgres jenkins
+
+
+# gitlab
+cat ~/.shh/XXX.pub 
+add on gitlab
 
 
 #Jenkins - first acess
@@ -16,7 +22,9 @@ docker pull jenkins
 docker container exec -it 3361ede4dc96 /bin/sh
 cat var/jenkins_home/secrets/initialAdminPassword
 "get the password"
-install sugested plugins
+#install sugested plugins inside of containet EXEC
+jenkins-plugin-cli --plugins ssh-credentials:1.19
+
 #Local - admin - admin
 docker-compose up -d zipkin_infnet grafana prometheus
 
