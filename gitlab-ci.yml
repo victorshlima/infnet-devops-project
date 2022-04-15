@@ -18,16 +18,12 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
-    - gradle clean
-    - gradle build
+   # - gradle clean
+   # - gradle build
     - echo "AWS CONNECT"
     - ls
     - sh ./configure_aws.sh $ACCESS_KEY $SECRET_KEY $REGION
-    - pwd
-    - ls /bin/bash
-    - cd ..
-    - pwd
-    - ls
+
   artifacts:
     paths:
       - build/libs/
