@@ -49,7 +49,7 @@
 //
 //    @Test
 //    void whenValidInput_thenReturns200() throws Exception {
-//        mockMvc.perform(get("/user/1")
+//        mockMvc.perform(get("http://localhost:8088/user/1")
 //                        .contentType("application/json"))
 //                .andExpect(status().isOk());
 //    }
@@ -57,7 +57,7 @@
 //
 //    @Test
 //    void whenValidInput_thenReturns2002() throws Exception {
-//        mockMvc.perform(post("/user")
+//        mockMvc.perform(post("http://localhost:8088/user")
 //                        .contentType("application/json")
 //                        .content("{\"name\": \"Bill12\",  \"lastName\": \"Hicks\",  \"zipCode\": \"300010-666\",  \"number\": 306}"))
 //                .andExpect(status().isOk());

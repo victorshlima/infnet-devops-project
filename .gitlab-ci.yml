@@ -6,30 +6,27 @@ variables:
   REGION: $REGION
   JAR_NAME: "infnet-devops-project-0.0.1-SNAPSHOT.jar"
 
-stages:          # List of stages for jobs, and their order of execution
+stages:
   - build
   - test
   - sonar
   - deploy
   - notification
 
-build-job:       # This job runs in the build stage, which runs first.
+build-job:
   stage: build
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
-   # - gradle clean
-   # - gradle build
-    - echo "AWS CONNECT"
-    - ls
-    - sh ./configure_aws.sh $ACCESS_KEY $SECRET_KEY $REGION
+    - gradle clean
+    - gradle build
 
   artifacts:
     paths:
       - build/libs/
 
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+unit-test-job:
+  stage: test
   script:
     - echo "Running unit tests... This will take about 60 seconds."
     - gradle test
@@ -41,19 +38,23 @@ unit-test-job:   # This job runs in the test stage.
     - build-job
 
 #Simulating code quality
-sonarlint-test-job:   # This job also runs in the test stage.
-  stage: sonar    # It can run at the same time as unit-test-job (in parallel).
+sonarlint-test-job:
+  stage: sonar
   script:
     - echo "Linting code... This will take about 10 seconds."
     - echo "No lint issues found."
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+deploy-job:
+  stage: deploy
   script:
     - echo "Deploying application to S3"
     - echo "Verifing if the File Exist
     - ls build/libs
     #deploy to artfactory nexus, jfrog
+    - echo "AWS CONNECT"
+    - ls
+    - sh ./configure_aws.sh $ACCESS_KEY $SECRET_KEY $REGION
+    - aws s3 cp build/libs/$JAR_NAME s3://infnet-devops-s3-bucket/
     - echo "Application successfully deployed."
   dependencies:
     - sonarlint-test-job
@@ -63,11 +64,13 @@ sucess-notification:
   when: on_success
   script:
     - echo "Sucess"
-    #send message to e-mail, slack e etc
+    - sh send_notfication.sh
+    #send message to e-mail
 
 failure-notification:
   stage: notification
   when: on_failure
   script:
     - echo "error"
-  #send message to e-mail, slack e etc
+  #GITLAB was configured to send notification on pipeline failure
+

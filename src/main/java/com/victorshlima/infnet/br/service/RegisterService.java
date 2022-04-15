@@ -10,18 +10,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import static com.victorshlima.infnet.br.repository.UseDtoEntities.*;
-import static com.victorshlima.infnet.br.repository.UseDtoEntities.userId1;
+import static com.victorshlima.infnet.br.repository.UseDtoEntities.USER_DTO_1;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
 
+    @Autowired
+    RestTemplate restTemplate;
+
     //Apenas para simular o retorno do Banco
-    public static UserDto findUser(@NonNull Long id){
+    public UserDto findUser(@NonNull Long id){
 
         if(id.equals(1L))
-            return userId1;
+            return USER_DTO_1;
         if(id.equals(2L))
             return userId2;
         if(id.equals(3L))
@@ -38,7 +41,7 @@ public class RegisterService {
     public static UserDto saveUser(UserDto userId) {
 
         if(userId.getId().equals(1L))
-            return UserDtoParse.formatUserDto(userId1);
+            return UserDtoParse.formatUserDto(USER_DTO_1);
         if(userId.getId().equals(2L))
             return userId2;
         if(userId.getId().equals(3L))
@@ -48,9 +51,6 @@ public class RegisterService {
 
     }
 
-    @Autowired
-    RestTemplate restTemplate;
-  //  @Override
     public Boolean isValid(Long id) {
         String url = String.format("http://localhost:8087/validate/%s",id);
         log.info(String.format("URL CHAMADA:::::: %s ",url));
