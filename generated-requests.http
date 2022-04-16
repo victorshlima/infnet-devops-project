@@ -1,13 +1,15 @@
 
 ###
-###
-DELETE {{localhost}}/user/1
+
+DELETE http://localhost:8088/user/12
+
 
 ###
-POST {{localhost}}/user
+
+GET http://localhost:8088/user/12
 
 ###
-POST {{localhost}}/user
+POST localhost:8088/user
 Content-Type: application/json
 
 {
@@ -17,6 +19,4 @@ Content-Type: application/json
   "zipCode": "300010-666",
   "number": 306
 }
-###
-GET {{localhost}}/user/1
 
